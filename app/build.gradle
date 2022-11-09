@@ -33,15 +33,17 @@ android {
     }
 
     apollo {
-        schemaFile = file("../app/src/main/graphql/io/hydok/apolloclient/schema.json")
-        packageName.set("io.hydok.apolloclient")
-        generateKotlinModels = true
+        //schemaFile = file("../app/src/main/graphql/io/hydok/apolloclient/schema.json")
+        //packageName.set("io.hydok.apolloclient")
+        useVersion2Compat()
     }
 }
 
 dependencies {
     implementation("com.apollographql.apollo3:apollo-runtime")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
+    implementation("com.apollographql.apollo3:apollo-api")
+
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'

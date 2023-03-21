@@ -5,18 +5,22 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.apollographql.apollo3.ApolloClient
+import io.hydok.apolloclient.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 
+
 class MainActivity : AppCompatActivity() {
+
+    private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
+
 
         val apolloClient = ApolloClient.Builder()
             .serverUrl("https://rickandmortyapi.com/graphql/")
             .build()
-
-
 
         lifecycleScope.launch {
             val gqlResult = apolloClient.query(GetCharactersQuery()).execute()
@@ -26,6 +30,10 @@ class MainActivity : AppCompatActivity() {
 
             gqlResult.data?.characters?.results?.forEach {
                 Log.d("GraphQL", it.toString())
+            }
+
+            gqlResult.data?.characters?.results?.let {
+                binding.profileRecyclerview.adapter = ProfileAdapter(it)
             }
         }
     }

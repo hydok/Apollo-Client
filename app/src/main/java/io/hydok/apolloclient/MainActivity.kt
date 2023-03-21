@@ -25,12 +25,8 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val gqlResult = apolloClient.query(GetCharactersQuery()).execute()
 
-            Log.d("GraphQL", gqlResult.operation.document())
-            Log.d("GraphQL", gqlResult.operation.id())
-
-            gqlResult.data?.characters?.results?.forEach {
-                Log.d("GraphQL", it.toString())
-            }
+            //Log.d("GraphQL", gqlResult.operation.document())
+            //Log.d("GraphQL", gqlResult.operation.id())
 
             gqlResult.data?.characters?.results?.let {
                 binding.profileRecyclerview.adapter = ProfileAdapter(it)
